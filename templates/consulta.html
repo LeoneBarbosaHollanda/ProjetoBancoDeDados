@@ -1,0 +1,17 @@
+<body>
+
+    <div>
+        <ul>
+            {% for Lista in Lista %}
+            <li> NOME = {{Lista.Nome}}</li>
+            <li> CPF = {{Lista.CPF}}</li>
+            <li> SENHA = {{Lista.Senha}}</li>
+            <li> AGENCIA = {{Lista.Agencia}}</li>
+            <li> CONTA = {{Lista.Conta}}</li>
+            <li> RG = {{Lista.RG}}</li>
+            <li> SALDO DA CONTA = {{Lista.SaldoConta}}</li>
+            <hr>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
