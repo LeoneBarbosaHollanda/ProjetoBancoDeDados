@@ -94,7 +94,7 @@ def cadastrar():
         conexao.commit()
     except:
         return render_template('ERROR.html')
-    return render_template("index.html")
+    return render_template("pagInicial.html")
 
 
 @app.route('/consultar', methods=["POST", "GET"])
@@ -114,7 +114,22 @@ def consulta():
 
 @app.route('/')
 def main():
-    return render_template("index.html")
+    return render_template("pagInicial.html")
+
+
+@app.route('/logar', methods=['GET', 'POST'])
+def login():
+    try:
+        C = consultaBD(request.form['Nome'], request.form['CPF'])
+
+        a = consult(C[0][0], C[0][1], C[0][2], C[0]
+                        [3], C[0][4], C[0][5], C[0][6])
+
+        Lista = []
+        Lista.append(a)
+        return render_template("/index.html")
+    except:
+        return render_template('/ERROR.html')
 
 
 @app.route('/recebimento', methods=["POST", "GET"])
