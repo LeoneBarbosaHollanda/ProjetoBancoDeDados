@@ -3,10 +3,14 @@
     <div>
         <ul>
             {% for Lista in Lista %}
-            <li> NOME = {{Lista.Nome}}</li>
-            <li> CPF = {{Lista.CPF}}</li>
-            <li> ValorDivida = {{Lista.Valor}}</li>
-            <hr>
+            
+                <li> NOME = {{ Lista.Nome }}</li>
+
+                <li> CPF = {{ Lista.CPF }}</li>
+
+                <li> ValorDivida = {{ Lista.Valor }}</li>
+
+                <hr>
             {% endfor %}
         </ul>
     </div>

@@ -6,16 +6,13 @@ import mysql.connector
 conexao = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='leone16tuf@',
+    password='1234',
     database='bancodedadosoficial'
-
 )
 
 mycursor = conexao.cursor()
 
-
 app = Flask(__name__)
-
 
 def consultaBD(nome, CPF):
     consu = [nome, CPF]
@@ -24,14 +21,11 @@ def consultaBD(nome, CPF):
     resultado = mycursor.fetchall()
     return resultado
 
-
 class Dividas:
     def __init__(self, Nome, CPF, Valor):
         self.Nome = Nome
         self.CPF = int(CPF)
         self.Valor = Valor
-        pass
-
 
 class ValorEmprst:
     def __init__(self, valor, prest, data, CPF):
@@ -39,24 +33,18 @@ class ValorEmprst:
         self.prest = int(prest)
         self.data = data
         self.CPF = int(CPF)
-        pass
-
 
 class classPagar:
     def __init__(self, PREÇO, CPF, data):
         self.PREÇO = int(PREÇO)
         self.data = data
         self.CPF = int(CPF)
-        pass
-
 
 class classReceber:
     def __init__(self, PREÇO, CPF, data):
         self.PREÇO = int(PREÇO)
         self.data = data
         self.CPF = int(CPF)
-        pass
-
 
 class consult:
     def __init__(self, Conta, Nome, Agencia, RG, SaldoConta, Senha, CPF):
@@ -68,9 +56,6 @@ class consult:
         self.Senha = str(Senha)
         self.CPF = int(CPF)
 
-        pass
-
-
 class cadastro:
     def __init__(self, CPF, Nome, Senha, RG, SaldoConta, Agencia):
         self.CPF = int(CPF)
@@ -79,8 +64,6 @@ class cadastro:
         self.Agencia = int(Agencia)
         self.RG = int(RG)
         self.SaldoConta = int(SaldoConta)
-        pass
-
 
 @app.route('/cadastrar', methods=["POST"])
 def cadastrar():
@@ -96,7 +79,6 @@ def cadastrar():
         return render_template('ERROR.html')
     return render_template("pagInicial.html")
 
-
 @app.route('/consultar', methods=["POST", "GET"])
 def consulta():
     try:
@@ -111,11 +93,9 @@ def consulta():
     except:
         return render_template('/ERROR.html')
 
-
 @app.route('/')
 def main():
     return render_template("pagInicial.html")
-
 
 @app.route('/logar', methods=['GET', 'POST'])
 def login():
@@ -130,7 +110,6 @@ def login():
         return render_template("/index.html")
     except:
         return render_template('/ERROR.html')
-
 
 @app.route('/recebimento', methods=["POST", "GET"])
 def receber():
@@ -153,7 +132,6 @@ def receber():
 
     return render_template('/notinha.html', Lista=lista)
 
-
 @app.route('/excluir', methods=['POST', 'GET'])
 def apagar():
 
@@ -174,7 +152,6 @@ def apagar():
     conexao.commit()
     return render_template('/excluir.html')
 
-
 @app.route('/pagamento', methods=["POST", "GET"])
 def Pagar():
     try:
@@ -194,7 +171,6 @@ def Pagar():
     return render_template('/notinha.html', Lista=lista)
     # return render_template('/ERROR.html')
 
-
 @app.route('/emprestimo', methods=['POST', 'GET'])
 def emprst():
     try:
@@ -208,7 +184,6 @@ def emprst():
     except:
         return render_template('/ERROR.html')
 
-
 @app.route('/emprestimoConfirmado', methods=['POST', 'GET'])
 def emprestimoApr():
     a = ValorEmprst(request.form['ValorTotal'], request.form[
@@ -221,7 +196,6 @@ def emprestimoApr():
     conexao.commit()
     return render_template('/index.html')
 
-
 @app.route('/consultarDividas', methods=['POST', 'GET'])
 def consultarDivida():
     a = 'SELECT Nome,pessoa.CPF,sum(VALOR)*PARCELA as valorTotalEmprestimo FROM bancodedadosoficial.emprestimo, bancodedadosoficial.pessoa where emprestimo.CPF = pessoa.CPF GROUP BY pessoa.CPF ;'
@@ -231,6 +205,5 @@ def consultarDivida():
     for n in resultado:
         lista.append(Dividas(n[0], n[1], n[2]))
     return render_template('/Endividados.html', Lista=lista)
-
 
 app.run(debug=True)
